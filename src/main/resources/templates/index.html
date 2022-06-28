@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Estados</title>
+        <meta charset="UTF-8">
+        <link href="../static/css/estilo1.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"/>
+        <h2>Los Estados</h2>
+        <a th:href="@{/nuevoEstado}">Nuevo Estado</a>
+        <div th:if="${estados != null and !estados.empty}">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Capital</th>
+                        <th>Cantidad de población</th>
+                        <th>Cantidad de costas</th>
+                        <th>Eliminar</th>
+                        <th>Modificar</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="estado : ${estados}">
+                        <td th:text="${estado.nombre}"></td>
+                        <td th:text="${estado.capital}"></td>
+                        <td th:text="${estado.cant_poblacion}"></td>
+                        <td th:text="${estado.cant_costas}"></td>
+                        <td><a th:href="@{/eliminarEstado/}+${estado.n_estado}">Eliminar</a></td>
+                        <td><a th:href="@{/modificarEstado/}+${estado.n_estado}">Modificar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${estados == null or estados.empty}">
+            No tenemos lista de estados que mostrar...
+        </div>
+        <footer th:replace="layout/plantilla :: footer"/>
+    </body>
+</html>
